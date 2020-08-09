@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Image, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { RectButton } from 'react-native-gesture-handler';
+
+import api from '../../services/api';
 
 import landingImg from '../../assets/images/landing.png';
 import studyIcon from '../../assets/images/icons/study.png';
@@ -20,6 +22,14 @@ const Landing: React.FC = () => {
   function navigateToStudyPages() {
     navigate('StudyTabs');
   }
+
+  const [totalConnections, setTotalConnections] = useState(0);
+
+  useEffect(() => {
+    api
+      .get('/connections')
+      .then(response => setTotalConnections(response.data.total));
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -50,7 +60,8 @@ const Landing: React.FC = () => {
       </View>
 
       <Text style={styles.totalConnection}>
-        Total de 285 conexões já realizadas <Image source={heartIcon} />
+        Total de {totalConnections} conexões já realizadas{' '}
+        <Image source={heartIcon} />
       </Text>
     </View>
   );

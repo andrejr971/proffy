@@ -18,6 +18,11 @@ const styles = StyleSheet.create({
     marginVertical: 40,
     fontFamily: 'Archivo_700Bold',
   },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
 });
 
 export default styles;
