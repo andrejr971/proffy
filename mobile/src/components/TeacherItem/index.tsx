@@ -8,6 +8,7 @@ import unFavoriteIcon from '../../assets/images/icons/unfavorite.png';
 import whatsappIcon from '../../assets/images/icons/whatsapp.png';
 
 import styles from './styles';
+import api from '../../services/api';
 
 export interface Teacher {
   id: number;
@@ -27,7 +28,11 @@ interface TeacherProps {
 const TeacherItem: React.FC<TeacherProps> = ({ teacher, favorited }) => {
   const [isFavorited, setIsFavorited] = useState(favorited);
 
-  function handleLinkToWhatsapp() {
+  async function handleLinkToWhatsapp() {
+    await api.post('connections', {
+      user_id: teacher.id,
+    });
+
     Linking.openURL(
       `whatsapp://send?text=Hello World!&phone=${teacher.whatsapp}`,
     );
